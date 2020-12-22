@@ -1,18 +1,19 @@
 version: "3.4"
 services:
-  geth.dnp.dappnode.eth:
-    image: "geth.dnp.dappnode.eth:0.1.12"
+  geth-fork-goerli.dnp.dappnode.eth:
+    image: "geth-fork-goerli.dnp.dappnode.eth:0.1.0"
     build:
       context: ./build
     volumes:
-      - "geth:/root/.ethereum"
+      - "geth-fork-goerli:/root/.ethereum"
     environment:
-      - "EXTRA_OPTS=--rpcapi eth,net,web3,txpool --nousb"
-      - SYNCMODE
+      - >-
+        EXTRA_OPTS=--rpcapi eth,net,web3,txpool --nousb --cache.noprefetch
+        --goerli
     ports:
       - "30303"
       - 30303/udp
       - 30304/udp
     restart: always
 volumes:
-  geth: {}
+  geth-fork-goerli: {}
